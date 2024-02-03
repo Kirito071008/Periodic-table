@@ -36,5 +36,27 @@ def ev():
         if int(g2) > 10:
             g2 = int(g2)-10
         ev = int(g1)*int(y2)+int(g2)*int(z2)+int((c))
-        print(f"Carica formale: {ev}")
+        print(f"Elettroni di valenzza: {ev}\nFormula: {g1}*{y2}+{g2}*{z2}+{c}={ev}")
+    elif x == "3":
+        y = input("Simbolo primo elemento:\t")
+        y2 = input("Quanti ne sono?:\t")
+        z = input("Simbolo secondo elemento:\t")
+        z2 = input("Quanti ne sono?:\t")
+        u = input("Simbolo terzo elemento:\t")
+        u2 = input("Quanti ne sono?:\t")
+        c = input("Indicare eventuali elettroni aggiunti o rimossi da '-/+' (0 se non ce ne sono):\t")
+        elemento1 = element(y)
+        elemento2 = element(z)
+        elemento3 = element(u)
+        g1 = elemento1.group_id
+        g2 = elemento2.group_id
+        g3 = elemento3.group_id
+        if int(g1) > 10:
+            g1 = int(g1)-10
+        if int(g2) > 10:
+            g2 = int(g2)-10
+        if int(g3) > 10:
+            g3 = int(g3)-10
+        ev = int(g1)*int(y2)+int(g2)*int(z2)+int(g3)*int(u2)+int((c))
+        print(f"Elettroni di valenzza: {ev}\nFormula: {g1}*{y2}+{g2}*{z2}+{g3}*{u2}+{c}={ev}")
 menu()

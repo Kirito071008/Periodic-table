@@ -1,5 +1,8 @@
 import pyfiglet,platform,os
 from mendeleev import element
+lowercase = "abcdefghijklmnopqrstuvwxyz"
+uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+numbers = "1234567890"
 if platform.system() == "Windows":
     def clear(): os.system("cls")
 else:
@@ -9,7 +12,7 @@ def menu():
     clear()
     ascii_banner = pyfiglet.figlet_format("Kirito's Help")
     print(ascii_banner)
-    print("Benvenuto!, Cosa vuoi fare??")
+    print("Benvenuto!, Cosa vuoi fare?")
     x = input("1)Calcolo Elettroni di valenza 2)Calcolo Carica Formale\n")
     if x == "1":
         ev()
@@ -20,43 +23,58 @@ def menu():
     else:
         menu()
 def ev():
-    x = input("Quanti elementi sono?\n")
-    if x == "2":
-        y = input("Simbolo primo elemento:\t")
-        y2 = input("Quanti ne sono?:\t")
-        z = input("Simbolo secondo elemento:\t")
-        z2 = input("Quanti ne sono?:\t")
-        c = input("Indicare eventuali elettroni aggiunti o rimossi da '-/+' (0 se non ce ne sono):\t")
-        elemento1 = element(y)
-        elemento2 = element(z)
-        g1 = elemento1.group_id
-        g2 = elemento2.group_id
-        if int(g1) > 10:
-            g1 = int(g1)-10
-        if int(g2) > 10:
-            g2 = int(g2)-10
-        ev = int(g1)*int(y2)+int(g2)*int(z2)+int((c))
-        print(f"Elettroni di valenzza: {ev}\nFormula: {g1}*{y2}+{g2}*{z2}+{c}={ev}")
-    elif x == "3":
-        y = input("Simbolo primo elemento:\t")
-        y2 = input("Quanti ne sono?:\t")
-        z = input("Simbolo secondo elemento:\t")
-        z2 = input("Quanti ne sono?:\t")
-        u = input("Simbolo terzo elemento:\t")
-        u2 = input("Quanti ne sono?:\t")
-        c = input("Indicare eventuali elettroni aggiunti o rimossi da '-/+' (0 se non ce ne sono):\t")
-        elemento1 = element(y)
-        elemento2 = element(z)
-        elemento3 = element(u)
-        g1 = elemento1.group_id
-        g2 = elemento2.group_id
-        g3 = elemento3.group_id
-        if int(g1) > 10:
-            g1 = int(g1)-10
-        if int(g2) > 10:
-            g2 = int(g2)-10
-        if int(g3) > 10:
-            g3 = int(g3)-10
-        ev = int(g1)*int(y2)+int(g2)*int(z2)+int(g3)*int(u2)+int((c))
-        print(f"Elettroni di valenzza: {ev}\nFormula: {g1}*{y2}+{g2}*{z2}+{g3}*{u2}+{c}={ev}")
+    list = []
+    list2 = []
+    list3 = []
+    count = 0
+    x = input("Inserisci la molecola:\t")
+    for elementi in x:
+        if elementi in uppercase:
+            list3.append(elementi)
+            x = element(elementi)
+            h = x.group_id
+            if int(h) > 10:
+                h -= 10
+                if count == 1:
+                    z = sum(list2)
+                    list.append(z)
+                    list2.clear()
+                    list2.append(h)
+                    count -= 1
+                else:
+                    list2.append(h)
+                    count += 1
+            else:
+                if count == 1:
+                    z = sum(list2)
+                    list.append(z)
+                    list2.clear()
+                    list2.append(h)
+                    count -= 1
+                else:
+                    list2.append(h)
+                    count += 1
+        elif elementi in lowercase:
+            p = list3[0]
+            list3.clear()
+            count -= 1
+            y = str(p)+str(elementi)
+            z = element(y)
+            j = z.group_id
+            if int(j) > 10:
+                j -= 10
+                list.append(j)
+            else:
+                list.append(j)
+        elif elementi in numbers:
+            z = sum(list2)
+            list2.clear()
+            count -= 1
+            y = z*int(elementi)
+            list.append(int(y))
+    if count == 1:
+        g = sum(list)+sum(list2)
+    else:
+        g = sum(list)
+    print(f"Elettroni di valenza: {g}")
 menu()
